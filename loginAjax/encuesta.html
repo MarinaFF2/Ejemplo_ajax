@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Encuesta</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="jquery-3.4.1.min.js"></script>
+    </head>
+
+    <body>
+
+        <script>
+
+            var color = "";
+            var lugar = "";
+            var coche = "";
+            var equipo = "";
+            var estacion = "";
+            var deportes = new Array();
+            var comidas = new Array();
+            var bebidas = new Array();
+            var entretenimientos = new Array();
+            var peliculas = new Array();
+
+            $(function () {
+                $("#enviar").click(function () {
+
+                    var a = leercookie();
+
+                    if (a === "inactiva") {
+                        alert("Ya has realizado la encuesta");
+                    } else {
+
+                        almacenarDatos();
+                        datosEncuestaBD();
+                        mostrarDatos();
+
+                        document.cookie = "nombre=inactiva;expire=12/12/1970";
+
+                    }
+
+                });
+            });
+
+            function leercookie() {
+
+                var ca = document.cookie.split('=');//Recupera el contenido de la cookie separando la información que interesa
+                var c = ca[1];
+
+                return c;
+            }
+
+            function almacenarDatos() {
+
+                //color
+                if ($("#rojo").is(':checked')) {
+                    color = $("#rojo").val();
+                }
+
+                if ($("#azul").is(':checked')) {
+                    color = $("#azul").val();
+                }
+
+                if ($("#verde").is(':checked')) {
+                    color = $("#verde").val();
+                }
+
+                if ($("#amarillo").is(':checked')) {
+                    color = $("#amarillo").val();
+                }
+
+                //lugar
+                if ($("#playa").is(':checked')) {
+                    lugar = $("#playa").val();
+                }
+
+                if ($("#montana").is(':checked')) {
+                    lugar = $("#montana").val();
+                }
+
+                if ($("#pueblo").is(':checked')) {
+                    lugar = $("#pueblo").val();
+                }
+
+                if ($("#ciudad").is(':checked')) {
+                    lugar = $("#ciudad").val();
+                }
+
+                //coche
+                if ($("#ford").is(':checked')) {
+                    coche = $("#ford").val();
+                }
+
+                if ($("#citroen").is(':checked')) {
+                    coche = $("#citroen").val();
+                }
+
+                if ($("#opel").is(':checked')) {
+                    coche = $("#opel").val();
+                }
+
+                if ($("#fiat").is(':checked')) {
+                    coche = $("#fiat").val();
+                }
+
+                //equipo
+                if ($("#barcelona").is(':checked')) {
+                    equipo = $("#barcelona").val();
+                }
+
+                if ($("#madrid").is(':checked')) {
+                    equipo = $("#madrid").val();
+                }
+
+                if ($("#atletico").is(':checked')) {
+                    equipo = $("#atletico").val();
+                }
+
+                if ($("#sevilla").is(':checked')) {
+                    equipo = $("#sevilla").val();
+                }
+
+                //estación
+                if ($("#primavera").is(':checked')) {
+                    estacion = $("#primavera").val();
+                }
+
+                if ($("#verano").is(':checked')) {
+                    estacion = $("#verano").val();
+                }
+
+                if ($("#otono").is(':checked')) {
+                    estacion = $("#otono").val();
+                }
+
+                if ($("#invierno").is(':checked')) {
+                    estacion = $("#invierno").val();
+                }
+
+                //deportes
+                if ($("#tenis").is(':checked')) {
+                    deportes.push($("#tenis").val());
+                }
+
+                if ($("#futbol").is(':checked')) {
+                    deportes.push($("#futbol").val());
+                }
+
+                if ($("#baloncesto").is(':checked')) {
+                    deportes.push($("#baloncesto").val());
+                }
+
+                if ($("#golf").is(':checked')) {
+                    deportes.push($("#golf").val());
+                }
+
+                //comidas
+                if ($("#tortilla").is(':checked')) {
+                    comidas.push($("#tortilla").val());
+                }
+
+                if ($("#macarrones").is(':checked')) {
+                    comidas.push($("#macarrones").val());
+                }
+
+                if ($("#migas").is(':checked')) {
+                    comidas.push($("#migas").val());
+                }
+
+                if ($("#cocido").is(':checked')) {
+                    comidas.push($("#cocido").val());
+                }
+
+                //bebidas
+                if ($("#agua").is(':checked')) {
+                    bebidas.push($("#agua").val());
+                }
+
+                if ($("#cerveza").is(':checked')) {
+                    bebidas.push($("#cerveza").val());
+                }
+
+                if ($("#vino").is(':checked')) {
+                    bebidas.push($("#vino").val());
+                }
+
+                if ($("#refresco").is(':checked')) {
+                    bebidas.push($("#refresco").val());
+                }
+
+                //entretenimientos
+                if ($("#cine").is(':checked')) {
+                    entretenimientos.push($("#cine").val());
+                }
+
+                if ($("#series").is(':checked')) {
+                    entretenimientos.push($("#series").val());
+                }
+
+                if ($("#deporte").is(':checked')) {
+                    entretenimientos.push($("#deporte").val());
+                }
+
+                if ($("#videojuegos").is(':checked')) {
+                    entretenimientos.push($("#videojuegos").val());
+                }
+
+                //peliculas
+                if ($("#accion").is(':checked')) {
+                    peliculas.push($("#accion").val());
+                }
+
+                if ($("#terror").is(':checked')) {
+                    peliculas.push($("#terror").val());
+                }
+
+                if ($("#comedia").is(':checked')) {
+                    peliculas.push($("#comedia").val());
+                }
+
+                if ($("#misterio").is(':checked')) {
+                    peliculas.push($("#misterio").val());
+                }
+
+            }
+
+            function mostrarDatos() {
+                alert("Color: " + color + "\nLugar: " + lugar + "\nCoche: " + coche + "\nEquipo: " + equipo + "\nEstación: " + estacion + "\nDeportes: " + deportes + "\nComidas: " + comidas + "\nBebidas: " + bebidas + "\nEntretenimiento: " + entretenimientos + "\nPelículas: " + peliculas);
+            }
+            
+            function datosEncuestaBD() {
+                
+                $.ajax({
+                    data: {}, //datos json recogidos del formulario formu
+                    type: "POST", // método de envío de datos
+                    url: "servidor2.php", //código a ejecutar en el servidor
+                    success: function (respuesta) {
+                        //alert(respuesta);
+                        if (respuesta !== null) {
+                            var variable = JSON.parse(respuesta); //conversión a json de los datos de respuesta
+                            //alert(variable[0].nombre);
+                            //$("#salida").html(variable[0].nombre);
+                            //location.href = "encuesta.html";
+                            alert("Tu Color: " + color + " -> Color BBDD:" + variable[0].color + "\n\nTu Lugar: " + lugar + " -> Lugar BBDD:" + variable[0].lugar + "\n\nTu Coche: " + coche + " -> Coche BBDD:" + variable[0].coche + "\n\nTu Equipo: " + equipo + " -> Equipo BBDD:" + variable[0].equipo + "\n\nTu Estación: " + estacion + " -> Estación BBDD:" + variable[0].estacion + "\n\nTus Deportes: " + deportes + " -> Deporte BBDD:" + variable[0].deporte + "\n\nTus Comidas: " + comidas + " -> Comida BBDD:" + variable[0].comida + "\n\nTus Bebidas: " + bebidas + " -> Bebida BBDD:" + variable[0].bebida + "\n\nTus Entretenimientos: " + entretenimientos + " -> Entretenimiento BBDD:" + variable[0].entretenimiento + "\n\nTus Películas: " + peliculas + " -> Película BBDD:" + variable[0].pelicula);
+                        }
+                    }
+
+                });
+            }
+
+        </script>
+
+        <form name="encuesta">
+            <h1>Encuesta</h1>
+
+            <fieldset>
+                <legend>Color favorito</legend>
+                <input type="radio" name="color" id="rojo" value="rojo">Rojo<br>
+                <input type="radio" name="color" id="azul" value="azul">Azul<br>
+                <input type="radio" name="color" id="verde" value="verde">Verde<br>
+                <input type="radio" name="color" id="amarillo" value="amarillo">Amarillo<br>
+            </fieldset>
+
+            <fieldset>
+                <legend>Lugar favorito</legend>
+                <input type="radio" name="lugar" id="playa" value="playa">Playa<br>
+                <input type="radio" name="lugar" id="montana" value="montaña">Montaña<br>
+                <input type="radio" name="lugar" id="pueblo" value="pueblo">Pueblo<br>
+                <input type="radio" name="lugar" id="ciudad" value="ciudad">Ciudad<br>
+            </fieldset>
+
+            <fieldset>
+                <legend>Marca coche favorita</legend>
+                <input type="radio" name="coche" id="ford" value="ford">Ford<br>
+                <input type="radio" name="coche" id="citroen" value="citroen">Citroen<br>
+                <input type="radio" name="coche" id="opel" value="opel">Opel<br>
+                <input type="radio" name="coche" id="fiat" value="fiat">Fiat<br>
+            </fieldset>
+
+            <fieldset>
+                <legend>Equipo favorito</legend>
+                <input type="radio" name="equipo" id="barcelona" value="barcelona">Barcelona<br>
+                <input type="radio" name="equipo" id="madrid" value="madrid">Madrid<br>
+                <input type="radio" name="equipo" id="atletico" value="atletico">Atlético<br>
+                <input type="radio" name="equipo" id="sevilla" value="sevilla">Sevilla<br>
+            </fieldset>
+
+            <fieldset>
+                <legend>Estación favorita</legend>
+                <input type="radio" name="estacion" id="primavera" value="primavera">Primavera<br>
+                <input type="radio" name="estacion" id="verano" value="verano">Verano<br>
+                <input type="radio" name="estacion" id="otono" value="otono">Otoño<br>
+                <input type="radio" name="estacion" id="invierno" value="invierno">Invierno<br>
+            </fieldset>
+
+            <fieldset>
+                <legend>Deportes</legend>
+                <input type="checkbox" name="deporte" id="tenis" value="tenis">Tenis<br>
+                <input type="checkbox" name="deporte" id="futbol" value="futbol">Fútbol<br>
+                <input type="checkbox" name="deporte" id="baloncesto" value="baloncesto">Baloncesto<br>
+                <input type="checkbox" name="deporte" id="golf" value="golf">Golf<br>
+            </fieldset>
+
+            <fieldset>
+                <legend>Comida</legend>
+                <input type="checkbox" name="comida" id="tortilla" value="tortilla">Tortilla<br>
+                <input type="checkbox" name="comida" id="macarrones" value="macarrones">Macarrones<br>
+                <input type="checkbox" name="comida" id="migas" value="migas">Migas<br>
+                <input type="checkbox" name="comida" id="cocido" value="cocido">Cocido<br>
+            </fieldset>
+
+            <fieldset>
+                <legend>Bebida</legend>
+                <input type="checkbox" name="bebida" id="agua" value="agua">Agua<br>
+                <input type="checkbox" name="bebida" id="cerveza" value="cerveza">Cerveza<br>
+                <input type="checkbox" name="bebida" id="vino" value="vino">Vino<br>
+                <input type="checkbox" name="bebida" id="refresco" value="refresco">Resfresco<br>
+            </fieldset>
+
+            <fieldset>
+                <legend>Entretenimiento</legend>
+                <input type="checkbox" name="entretenimiento" id="cine" value="cine">Cine<br>
+                <input type="checkbox" name="entretenimiento" id="series" value="series">Series<br>
+                <input type="checkbox" name="entretenimiento" id="deporte" value="deporte">Deporte<br>
+                <input type="checkbox" name="entretenimiento" id="videojuegos" value="videojuegos">Videojuegos<br>
+            </fieldset>
+
+            <fieldset>
+                <legend>Películas</legend>
+                <input type="checkbox" name="peliculas" id="accion" value="accion">Acción<br>
+                <input type="checkbox" name="peliculas" id="terror" value="terror">Terror<br>
+                <input type="checkbox" name="peliculas" id="comedia" value="comedia">Comedia<br>
+                <input type="checkbox" name="peliculas" id="misterio" value="misterio">Misterio<br>
+            </fieldset>
+
+            <br><input type="submit" name="bt" id="enviar" value="Enviar">
+        </form>
+    </body>
+
+</html>

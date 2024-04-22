@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Login</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="jquery-3.4.1.min.js"></script>
+        <script>
+
+            $(function () {
+
+                $("#boton").click(entrar);
+
+            });
+
+            function entrar() {
+                //alert($("#nombre").val());
+                $.ajax({
+                    data: {"nombre": $("#nombre").val(), "contra": $("#contrasena").val()}, //datos json recogidos del formulario formu
+                    type: "POST", // método de envío de datos
+                    url: "servidor.php", //código a ejecutar en el servidor
+                    success: function (respuesta) {
+                        //alert(respuesta);
+                        if (respuesta !== null) {
+                            var variable = JSON.parse(respuesta); //conversión a json de los datos de respuesta
+                            //alert(variable[0].nombre);
+                            $("#salida").html(variable[0].nombre);
+                            location.href = "encuesta.html";
+                        }
+                    }
+
+                });
+            }
+
+        </script>
+    </head>
+
+    <body>
+
+        <form id="formu">
+            Nombre:<input id="nombre" name="nombre" type="text"><br>
+            Contraseña:<input id="contrasena" name="contrasena" type="password"><br>
+            <input type="button" id="boton" name="aceptar" value="Aceptar">
+        </form>
+
+        <div id="salida">
+
+        </div>
+
+    </body>
+</html>
